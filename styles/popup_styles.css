@@ -1,11 +1,11 @@
-.content {
+/* .content {
     width: 300px;
     height: 300px;
     margin: 20px;
-}
-#save {
+} */
+/* #save {
     margin: 20px;
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50; 
     border: none;
     color: white;
     padding: 10px 20px;
@@ -15,19 +15,46 @@
     display: inline-block;
     font-size: 16px;
     float: right;
+} */
+body {
+  padding: 0;
+  margin: 0;
+  /* font-size: 16px; */
+  /* line-height: 1.5; */
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* -webkit-box-orient: vertical; */
+  /* -webkit-box-direction: normal; */
+  scroll-behavior: smooth;
 }
 #save:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
-#status {
-    font-weight: bold;
-    margin-top: 10px;
-    font-size: 14px;
-    color: #4CAF50; /* Green */
-}
-#donate {
-    font-size: 16px;
+/* #status {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #4caf50;
+} */
+/* #donate {
+  font-size: 16px;
 }
 label {
-    font-size: 14px;
+  font-size: 14px;
+} */
+
+.text-accent0 {
+  color: #5b5e6c;
+}
+.bg-accent0 {
+  background-color: #5b5e6c;
+}
+.border-accent0 {
+  background-color: #5b5e6c;
+}
+.text-accent1 {
+  color: #325eff;
+}
+.border-accent1 {
+  background-color: #325eff;
 }
