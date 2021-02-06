@@ -43,52 +43,97 @@
       <div class="py-4">
         <h3 class="py-2 text-xl font-bold">Custom Colors</h3>
 
-        <div class="px-2 py-2">
-          <label class="block text-sm font-medium" for="threeDigitColor"
-            >3 Digit Serials</label
-          >
-          <select
-            id="threeDigitColor"
-            name="threeDigitColor"
-            class="text-black mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          >
-            <option value="red">red</option>
-            <option value="green">green</option>
-            <option value="blue">blue</option>
-            <option value="magenta">magenta</option>
-          </select>
-        </div>
+        <div class="grid grid-cols-3">
+          <div class="px-2 py-2 select-container">
+            <label class="block text-sm font-medium" for="threeDigitColor"
+              >3 Digit Serials</label
+            >
+            <svg
+              width="16"
+              height="16"
+              fill="#a7aebb"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              class="absolute right-4"
+              style="top: 55%"
+            >
+              <path
+                d="M11.918 15.586L6.137 9.852a.47.47 0 010-.665l.773-.773a.47.47 0 01.664 0l4.676 4.629 4.676-4.629a.47.47 0 01.664 0l.773.774a.47.47 0 010 .664l-5.781 5.734a.47.47 0 01-.664 0z"
+                fill-rule="nonzero"
+              ></path>
+            </svg>
+            <select
+              id="threeDigitColor"
+              name="threeDigitColor"
+              class="appearance-none text-white bg-black mt-1 block w-full pl-3 pr-10 py-2 text-base border-2 border-accent2 focus:outline-none focus:ring-accent1 focus:border-accent1 sm:text-sm"
+            >
+              <option value="red">red</option>
+              <option value="green">green</option>
+              <option value="blue">blue</option>
+              <option value="magenta">magenta</option>
+            </select>
+          </div>
 
-        <div class="px-2 py-2">
-          <label class="block text-sm font-medium" for="twoDigitColor"
-            >2 Digit Serials</label
-          >
-          <select
-            id="twoDigitColor"
-            name="twoDigitColor"
-            class="text-black mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          >
-            <option value="red">red</option>
-            <option value="green">green</option>
-            <option value="blue">blue</option>
-            <option value="magenta">magenta</option>
-          </select>
-        </div>
+          <div class="px-2 py-2 select-container">
+            <label class="block text-sm font-medium" for="twoDigitColor"
+              >2 Digit Serials</label
+            >
+            <svg
+              width="16"
+              height="16"
+              fill="#a7aebb"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              class="absolute right-4"
+              style="top: 55%"
+            >
+              <path
+                d="M11.918 15.586L6.137 9.852a.47.47 0 010-.665l.773-.773a.47.47 0 01.664 0l4.676 4.629 4.676-4.629a.47.47 0 01.664 0l.773.774a.47.47 0 010 .664l-5.781 5.734a.47.47 0 01-.664 0z"
+                fill-rule="nonzero"
+              ></path>
+            </svg>
+            <select
+              id="twoDigitColor"
+              name="twoDigitColor"
+              class="appearance-none text-white bg-black mt-1 block w-full pl-3 pr-2 py-2 text-base border-2 border-accent2 focus:outline-none focus:ring-accent1 focus:border-accent1 sm:text-sm"
+              style="offset: 2px"
+            >
+              <option value="red">red</option>
+              <option value="green">green</option>
+              <option value="blue">blue</option>
+              <option value="magenta">magenta</option>
+            </select>
+          </div>
 
-        <div class="px-2 py-2">
-          <label class="block text-sm font-medium" for="oneDigitColor"
-            >1 Digit Serials</label
-          >
-          <select
-            id="oneDigitColor"
-            name="oneDigitColor"
-            class="text-black mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          >
-            <option value="red">red</option>
-            <option value="green">green</option>
-            <option value="blue">blue</option>
-            <option value="magenta">magenta</option>
-          </select>
+          <div class="px-2 py-2 select-container">
+            <label class="block text-sm font-medium" for="oneDigitColor"
+              >1 Digit Serials</label
+            >
+            <svg
+              width="16"
+              height="16"
+              fill="#a7aebb"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              class="absolute right-4"
+              style="top: 55%"
+            >
+              <path
+                d="M11.918 15.586L6.137 9.852a.47.47 0 010-.665l.773-.773a.47.47 0 01.664 0l4.676 4.629 4.676-4.629a.47.47 0 01.664 0l.773.774a.47.47 0 010 .664l-5.781 5.734a.47.47 0 01-.664 0z"
+                fill-rule="nonzero"
+              ></path>
+            </svg>
+            <select
+              id="oneDigitColor"
+              name="oneDigitColor"
+              class="appearance-none text-white bg-black mt-1 block w-full pl-3 pr-10 py-2 text-base border-2 border-accent2 focus:outline-none focus:ring-accent1 focus:border-accent1 sm:text-sm"
+            >
+              <option value="red">red</option>
+              <option value="green">green</option>
+              <option value="blue">blue</option>
+              <option value="magenta">magenta</option>
+            </select>
+          </div>
         </div>
       </div>
 

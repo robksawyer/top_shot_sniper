@@ -30,6 +30,19 @@ body {
 #save:hover {
   cursor: pointer;
 }
+.select-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 38px;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
 /* #status {
   font-weight: bold;
   margin-top: 10px;
@@ -50,11 +63,23 @@ label {
   background-color: #5b5e6c;
 }
 .border-accent0 {
-  background-color: #5b5e6c;
+  border-color: #5b5e6c;
 }
 .text-accent1 {
   color: #325eff;
 }
-.border-accent1 {
+.bg-accent1 {
   background-color: #325eff;
+}
+.border-accent1 {
+  border-color: #325eff;
+}
+.text-accent2 {
+  color: #a7aebb;
+}
+.bg-accent2 {
+  background-color: #a7aebb;
+}
+.border-accent2 {
+  border-color: #a7aebb;
 }
