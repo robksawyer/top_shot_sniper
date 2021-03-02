@@ -1,140 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Top Shot Sniper</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles/popup_styles.css" />
-  </head>
-  <body class="bg-black text-white px-6 py-4 overflow-hidden h-full">
-    <div class="w-full h-auto pt-2" style="width: 440px">
-      <div class="pb-2 w-48 h-auto">
-        <img
-          src="/static/img/top-shot-logo-horizontal-white.svg"
-          style="width: 100%; height: 100%"
-        />
-      </div>
-      <h2 class="text-lg py-2 text-accent0">Select your options below</h2>
-      <div
-        class="py-2 uppercase text-accent1 text-lg font-bold align-middle leading-3 tracking-wide"
-      >
-        <label class="pr-4" for="toggle">Sniper Mode</label>
-        <input
-          class="align-middle pl-2 leading-3"
-          type="checkbox"
-          id="toggle"
-        />
-      </div>
-      <!-- Coming soon: Serials to snipe -->
-      <div class="py-3">
-        <h3 class="text-accent0 text-lg pb-2">Serials to Snipe</h3>
-        <input
-          value=""
-          id="serialList"
-          name="serialList"
-          type="text"
-          placeholder="Serials (separated by comma. e.g. 88, 393, 499)"
-          class="bg-black border-accent3 border-2 w-full h-12 px-2 text-sm"
-        />
-      </div>
-      <div class="pt-2 pb-4">
-        <h3 class="py-2 text-lg font-normal text-accent0">Custom Colors</h3>
-
-        <div class="grid grid-cols-3">
-          <div class="px-2 py-2 select-container">
-            <label class="block text-sm font-medium" for="threeDigitColor"
-              >3 Digit Serials</label
-            >
-            <svg
-              width="16"
-              height="16"
-              fill="#a7aebb"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              class="absolute right-4"
-              style="top: 55%"
-            >
-              <path
-                d="M11.918 15.586L6.137 9.852a.47.47 0 010-.665l.773-.773a.47.47 0 01.664 0l4.676 4.629 4.676-4.629a.47.47 0 01.664 0l.773.774a.47.47 0 010 .664l-5.781 5.734a.47.47 0 01-.664 0z"
-                fill-rule="nonzero"
-              ></path>
-            </svg>
-            <select
-              id="threeDigitColor"
-              name="threeDigitColor"
-              class="appearance-none text-white bg-black mt-1 block w-full pl-3 pr-10 py-2 text-base border-2 border-accent2 focus:outline-none focus:ring-accent1 focus:border-accent1 sm:text-sm"
-            >
-              <option value="red">red</option>
-              <option value="green">green</option>
-              <option value="blue">blue</option>
-              <option value="magenta">magenta</option>
-            </select>
-          </div>
-
-          <div class="px-2 py-2 select-container">
-            <label class="block text-sm font-medium" for="twoDigitColor"
-              >2 Digit Serials</label
-            >
-            <svg
-              width="16"
-              height="16"
-              fill="#a7aebb"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              class="absolute right-4"
-              style="top: 55%"
-            >
-              <path
-                d="M11.918 15.586L6.137 9.852a.47.47 0 010-.665l.773-.773a.47.47 0 01.664 0l4.676 4.629 4.676-4.629a.47.47 0 01.664 0l.773.774a.47.47 0 010 .664l-5.781 5.734a.47.47 0 01-.664 0z"
-                fill-rule="nonzero"
-              ></path>
-            </svg>
-            <select
-              id="twoDigitColor"
-              name="twoDigitColor"
-              class="appearance-none text-white bg-black mt-1 block w-full pl-3 pr-2 py-2 text-base border-2 border-accent2 focus:outline-none focus:ring-accent1 focus:border-accent1 sm:text-sm"
-              style="offset: 2px"
-            >
-              <option value="red">red</option>
-              <option value="green">green</option>
-              <option value="blue">blue</option>
-              <option value="magenta">magenta</option>
-            </select>
-          </div>
-
-          <div class="px-2 py-2 select-container">
-            <label class="block text-sm font-medium" for="oneDigitColor"
-              >1 Digit Serials</label
-            >
-            <svg
-              width="16"
-              height="16"
-              fill="#a7aebb"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              class="absolute right-4"
-              style="top: 55%"
-            >
-              <path
-                d="M11.918 15.586L6.137 9.852a.47.47 0 010-.665l.773-.773a.47.47 0 01.664 0l4.676 4.629 4.676-4.629a.47.47 0 01.664 0l.773.774a.47.47 0 010 .664l-5.781 5.734a.47.47 0 01-.664 0z"
-                fill-rule="nonzero"
-              ></path>
-            </svg>
-            <select
-              id="oneDigitColor"
-              name="oneDigitColor"
-              class="appearance-none text-white bg-black mt-1 block w-full pl-3 pr-10 py-2 text-base border-2 border-accent2 focus:outline-none focus:ring-accent1 focus:border-accent1 sm:text-sm"
-            >
-              <option value="red">red</option>
-              <option value="green">green</option>
-              <option value="blue">blue</option>
-              <option value="magenta">magenta</option>
-            </select>
-          </div>
+    <head>
+        <title>Top Shot Helper Options</title>
+        <link rel="stylesheet" href="styles/popup_styles.css">
+    </head>
+    <body>
+        <div class="content">
+            <h1>Top Shot Helper Options</h1>
+            <div class="container">
+                <label for="toggle"><b>Sort Dropdown:</b></label>
+                <input type="checkbox" id="toggle">
+            </div>
+            <div class="windows">
+                <div class="container">
+                    <h3>Customize 4 Digit Serials: <input type="checkbox" id="toggle4"></h3>
+                    <div>
+                        <label for="fourDigitColor">Color (Windows Only): </label>
+                        <input type="color" id="fourDigitColor" name="head" value="#00FF00" disabled>
+                    </div>
+                    <div>
+                        <label for="fourDigitText">Text: </label>
+                        <input maxlength="20" type="text" id="fourDigitText" disabled>
+                    </div> 
+                </div>
+                <div class="container">
+                    <h3>Customize 3 Digit Serials: <input type="checkbox" id="toggle3"></h3>
+                    <div>
+                        <label for="threeDigitColor">Color (Windows Only): </label>
+                        <input type="color" id="threeDigitColor" name="head" value="#0000FF" disabled>
+                    </div>
+                    <div>
+                        <label for="threeDigitText">Text: </label>
+                        <input maxlength="20" type="text" id="threeDigitText" disabled>
+                    </div> 
+                </div>
+                <div class="container">
+                    <h3>Customize 2 Digit Serials: <input type="checkbox" id="toggle2"></h3>
+                    <div>
+                        <label for="twoDigitColor">Color (Windows Only): </label>
+                        <input type="color" id="twoDigitColor" name="head" value="#FF0000" disabled>
+                    </div>
+                    <div>
+                        <label for="twoDigitText">Text: </label>
+                        <input maxlength="20" type="text" id="twoDigitText" disabled>
+                    </div> 
+                </div>
+                <div class="container">
+                    <h3>Customize 1 Digit Serials: <input type="checkbox" id="toggle1"></h3>
+                    <div>
+                        <label for="oneDigitColor">Color (Windows Only): </label>
+                        <input type="color" id="oneDigitColor" name="head" value="#FF00FF" disabled>
+                    </div>
+                    <div>
+                        <label for="oneDigitText">Text: </label>
+                        <input maxlength="20" type="text" id="oneDigitText" disabled>
+                    </div> 
+                </div>
+            </div>
+            <div class="container">
+                <h3>Donate:</h3>
+                <div id="donate"><a target="_blank" href="https://www.nbatopshot.com/user/@spencer">Gift a moment to @spencer</a></div>
+                <h3>Discord Contact:</h3>
+                <div id="contact">spencer#1698</div>
+                <div id="status"></div>
+                <button id="save">Save</button>
+            </div>
         </div>
       </div>
 
