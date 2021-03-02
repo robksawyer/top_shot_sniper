@@ -1,3 +1,15 @@
+/**
+ * log
+ * @see https://krasimirtsonev.com/blog/article/Chrome-extension-debugging-dev-tools-tab-or-how-to-make-console-log
+ * @param {*} obj
+ */
+var log = (obj) => {
+    if (chrome && chrome.runtime) {
+        chrome.runtime.sendMessage({ type: 'bglog', obj });
+    }
+};
+
+  
 var sortDropdown = function(options) {
     var optionsArray = [];
     for (var i = 0; i < options.length; i++) {
@@ -11,12 +23,16 @@ var sortDropdown = function(options) {
             optionsArray.push(options[i]);        
         }
     }
-    options[i].price = options[i].innerText.split('$')[1];
+    optionsArray = optionsArray.sort(function (a, b) {           
+        if (parseInt(a.price.replace(/,/g, '')) === parseInt(b.price.replace(/,/g, ''))) {
+            return 0;
+        } else {
+            return (parseInt(a.price.replace(/,/g, '')) < parseInt(b.price.replace(/,/g, ''))) ? -1 : 1;
+        }   
+    });
 
-    // Find if lowest ask
-    var tLow = options[i].price.split('-').length;
-    if (tLow > 1) {
-      lowestAsks += 1;
+    for (var i = 0; i <= options.length; i++) {            
+        options[i] = optionsArray[i];
     }
     options[0].selected = true;
 };
@@ -106,6 +122,7 @@ chrome.storage.sync.get(['oneDigitColor', 'twoDigitColor', 'threeDigitColor', 'f
         var dropdown = document.getElementById('moment-detailed-serialNumber');
         if (dropdown !== null && dropdown.length) {
             if (toggle === true) {
+                log(dropdown.options)
                 sortDropdown(dropdown.options);
             }
             if(text1 !== "" || text2 !== "" || text3 !== "" || text4 !== "") {
