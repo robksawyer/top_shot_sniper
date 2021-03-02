@@ -65,6 +65,7 @@ label {
 .border-accent0 {
   border-color: #5b5e6c;
 }
+
 .text-accent1 {
   color: #325eff;
 }
@@ -74,6 +75,7 @@ label {
 .border-accent1 {
   border-color: #325eff;
 }
+
 .text-accent2 {
   color: #a7aebb;
 }
@@ -82,4 +84,24 @@ label {
 }
 .border-accent2 {
   border-color: #a7aebb;
+}
+
+.text-accent3 {
+  color: #C7112F;
+}
+.bg-accent3 {
+  background-color: #C7112F;
+}
+.border-accent3 {
+  border-color: #C7112F;
+}
+
+.text-accent4 {
+  color: #1C428A;
+}
+.bg-accent4 {
+  background-color: #1C428A;
+}
+.border-accent4 {
+  border-color: #1C428A;
 }

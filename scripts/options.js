@@ -19,12 +19,21 @@ function save_options() {
     function () {
       // Update status to let user know options were saved.
       var status = document.getElementById('status');
-      status.textContent = 'Options saved, please refresh your browser.';
+      status.textContent = 'Options saved, refreshing your browser.';
       setTimeout(function () {
         status.textContent = '';
-      }, 10000);
+        window.close();
+      }, 3000);
     }
   );
+
+  /**
+   * @see https://stackoverflow.com/questions/6718256/how-do-you-use-chrome-tabs-getcurrent-to-get-the-page-object-in-a-chrome-extensi#:~:text=getCurrent%20to%20get%20the%20page%20object%20in%20a%20Chrome%20extension%3F,-javascript%20html%20google&text=The%20code%20is%20meant%20to,within%20a%20browser%20action%20page.&text=getCurrent(%20function(tab)%7B%20console.
+   */
+  var code = 'window.location.reload();';
+  chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+    chrome.tabs.executeScript(tabs[0].id, { code: code });
+  });
 }
 
 /**

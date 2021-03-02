@@ -238,7 +238,9 @@ var init = function (options, c1, c2, c3, serialList) {
         for (var r = 0; r < foundSerials.length; r++) {
           var li = document.createElement('li');
           li.classList.add('inline-block', 'pr-2');
-          var serialAsInt = parseInt(foundSerials[r].replace('#', ''), 10);
+          var serialAsInt = foundSerials
+            ? parseInt(foundSerials[r].replace('#', ''), 10)
+            : 0;
           li.innerHTML =
             '<a href="#!" onClick="function() { document.getElementById(' +
             SELECT_LIST_ID +
