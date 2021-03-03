@@ -305,15 +305,14 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
             before = before.sort(function(a, b) {
                 return a - b;
             });
-            log(before);
 
             // Find the percentage away from the lowest price above 
             var minValAbove = before[1]; // Skip first because its the --- Select ...
-            log("minValAbove: " + minValAbove)
-            log("currVal: " + currVal)
+            // log("minValAbove: " + minValAbove)
+            // log("currVal: " + currVal)
             var diff = minValAbove - currVal;
             var tPerc = Math.round(diff / currVal * 100);
-            log("Buy percentage: " + tPerc)
+            // log("Buy percentage: " + tPerc)
 
             if (tPerc && data === undefined) {
                 options[i].innerText += " - " + tPerc.toString() + "%";
@@ -321,9 +320,9 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
             }
             
 
-            log("Percentage away from low above current " + tPerc);
+            // log("Percentage away from low above current " + tPerc);
             if (prices[i] < before[1]) {
-                log("Buy!")
+                // log("Buy!")
                 isBuy = true;
             } else if (prices[i] < before[1] && data === undefined) { 
                 options[i].innerText += " - LOWEST ABOVE $" + before[1];
