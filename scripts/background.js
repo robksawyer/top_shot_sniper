@@ -18,7 +18,7 @@ chrome.tabs.onUpdated.addListener(listener);
  * @param {*} sendResponse
  */
 const onMessageListener = (message, sender, sendResponse) => {
-  console.log(message, sender, sendResponse);
+  // console.log(message, sender, sendResponse);
   switch (message.type) {
     case 'bglog':
       console.log(message.obj);
