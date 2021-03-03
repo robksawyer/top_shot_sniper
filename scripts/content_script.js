@@ -308,11 +308,12 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
 
             // Find the percentage away from the lowest price above 
             var minValAbove = before[1]; // Skip first because its the --- Select ...
-            // log("minValAbove: " + minValAbove)
-            // log("currVal: " + currVal)
+            log("minValAbove: " + minValAbove)
+            log("currVal: " + currVal)
             var diff = minValAbove - currVal;
+            // log("Variance: " + diff);
             var tPerc = Math.round(diff / currVal * 100);
-            // log("Buy percentage: " + tPerc)
+            log("Buy percentage: " + tPerc)
 
             if (tPerc && data === undefined) {
                 options[i].innerText += " - " + tPerc.toString() + "%";
