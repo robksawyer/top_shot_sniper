@@ -345,41 +345,33 @@ chrome.storage.sync.get([
     'threeDigitText', 'fourDigitText', 'toggle', 
     'toggle1', 'toggle2', 'toggle3', 'toggle4'
 ], function(items) {
-    var dropdown = document.getElementById(SELECT_LIST_ID);
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (!mutation.addedNodes) {
+                return;
+            }
 
-    if (dropdown && !INITIALIZED) {
-        INITIALIZED = true;
-        // ready(items, dropdown);
-    } else if (!LOADING) {
-        LOADING = true
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (!mutation.addedNodes) {
-                    return;
-                }
-     
-                for (var node of mutation.addedNodes) {
-                    var childNodes = [node, ...allDescendents(node)];
-                   
-                    for (var childNode of childNodes) {
-                      if (childNode.id === SELECT_LIST_ID) {
-                          if (childNode.length > 1) {
-                            ready(items, childNode);
-                            break;
-                          }
-                      }
+            for (var node of mutation.addedNodes) {
+                var childNodes = [node, ...allDescendents(node)];
+            
+                for (var childNode of childNodes) {
+                if (childNode.id === SELECT_LIST_ID) {
+                    if (childNode.length > 1) {
+                        ready(items, childNode);
+                        break;
                     }
                 }
+                }
+            }
 
-                observer.disconnect();
-            });
+            observer.disconnect();
         });
+    });
 
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-            attributes: false,
-            characterData: false,
-        });
-    } 
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: false,
+        characterData: false,
+    });
 });
