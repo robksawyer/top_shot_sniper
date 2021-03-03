@@ -23,7 +23,6 @@ var log = function (obj) {
  * @param {*} dropdown 
  */
 var ready = function (items, dropdown) {
-    log('Select list loaded...')
     var color1 = items['oneDigitColor'];
     var color2 = items['twoDigitColor'];
     var color3 = items['threeDigitColor'];
@@ -44,13 +43,16 @@ var ready = function (items, dropdown) {
     colorArray.push(color1, color2, color3, color4);
     textArray.push(text1, text2, text3, text4);
 
+    var percentArray = []
     if (dropdown !== null && dropdown.length > 1) {
         if (toggle === true) {
-            var percentArray = getPercentages(dropdown.options)
+            percentArray = getPercentages(dropdown.options)
             // sortDropdown(dropdown.options);
         }
         if(text1 !== "" || text2 !== "" || text3 !== "" || text4 !== "") {
-            addText(dropdown.options, textArray, percentArray, toggleArray);
+            var serialNumberParam = getParameterByName(location.search, 'serialNumber');
+            log("serialNumber param: " + serialNumberParam);
+            addText(dropdown, textArray, percentArray, toggleArray, serialNumberParam, true);
         }
         // colorChanges(dropdown, colorArray, toggleArray);
     }
@@ -105,11 +107,11 @@ var getPercentages = function(options) {
         for (var i = 0; i < options.length; i++) {
             var optionsText = options[i].innerText;
             if (optionsText.includes('$')) {
-                options[i].price = optionsText.split('$')[1].replace(/,/g, '');
-                optionsArray.push(parseFloat(options[i].price));
+                var tPrice = optionsText.split('$')[1].replace(/,/g, '');
+                optionsArray.push(parseFloat(tPrice));
             } else {
-                options[i].price = 0.00;
-                optionsArray.push(parseFloat(options[i].price));        
+                var tPrice = 0.00;
+                optionsArray.push(parseFloat(tPrice));        
             }
         }
     } catch (err) {
@@ -124,11 +126,36 @@ var getPercentages = function(options) {
     // log("average: " + average)
     var percArray = []
     for (var j = 0; j < optionsArray.length; j++) {
-        var percentageInc = Math.round(parseInt(optionsArray[j], 10) / min * 100 - 100);
+        var curr = parseInt(optionsArray[j], 10);
+        var diff = curr - min;
+        var percentageInc = Math.round(diff / min * 100 );
         percArray.push(percentageInc)
     }
 
     return percArray
+}
+
+/**
+ * getPrices
+ * @param {*} options 
+ */
+var getPrices = function(options) {
+    var optionsArray = [];
+    try {
+        for (var i = 0; i < options.length; i++) {
+            var optionsText = options[i].innerText;
+            if (optionsText.includes('$')) {
+                var tPrice = optionsText.split('$')[1].replace(/,/g, '');
+                optionsArray.push(parseFloat(tPrice));
+            } else {
+                var tPrice = 0.00;
+                optionsArray.push(parseFloat(tPrice));        
+            }
+        }
+    } catch (err) {
+        log(err);
+    }
+    return optionsArray
 }
   
 var sortDropdown = function(options) {
@@ -205,92 +232,110 @@ var colorChanges = function(options, colors, toggles) {
  */
 var allDescendents = function(node) {
     const descendents = [];
-  
+
     for (const childNode of node.childNodes) {
-      descendents.push(childNode, ...allDescendents(childNode));
+        descendents.push(childNode, ...allDescendents(childNode));
     }
-  
+
     return descendents;
-  };
+};
 
   
 /**
  * addText
  * Adds the text next to the option item
- * @param {*} options 
+ * @param {HTMLSelectElement} options 
  * @param {*} text 
  * @param {*} percentages 
  * @param {*} toggles 
+ * @param {string} serialNumberParam 
+ * @param {bool} showPercentages 
  */
-var addText = function(options, text, percentages, toggles, showPercentages = true) {
-    var serialNumberParam;
-    try {
-        serialNumberParam = getParameterByName(location.search, 'serialNumber');
-        log("serialNumber param: " + serialNumberParam);
-    } catch(err) {
-        log(err);
-    }
-    var serialNumberParam = getParameterByName(location.search, 'serialNumber');
-    log("serialNumber param: " + serialNumberParam);
+var addText = function(options, text, percentages, toggles, serialNumberParam, showPercentages) {
+    log("Total options: " + options.length);
 
-
+    var prices = getPrices(options);
+    
     for (var i = 0; i < options.length; i++) {
         var digit = options[i].value.length;
-        var serialNumber = values[i].value;
         var data = options[i].dataset.text;
-        log("serialNumber: " + serialNumber)
+        var serialNumber = options[i].value;
 
-        // if (parseInt(serialNumber, 10) === parseInt(serialNumberParam, 10)) {
-        //     log("Sorting serial numbers before " + serialNumber);
-        //     // Sort the lower serials percentages
-        //     var sortedPercsBefore = [];
-        //     // Get array of number before current index, sort them and figure out if this one is lower than all others
-        //     var percsBefore = percentages.splice(0,i);
-        //     sortedPercsBefore = percsBefore.sort(function(a, b) {
-        //         return a - b;
-        //     });
-        //     log(sortedPercsBefore);
-        // }
+        var selectedSerial = parseInt(serialNumber, 10) === parseInt(serialNumberParam, 10)
+ 
+        var isBuy = false;
+
 
         if (digit === 1 && toggles[0] === true && data === undefined && text[0] !== "") {
             options[i].innerText += " - " + text[0];
-            if (showPercentages) options[i].innerText += " - " + percentages[i].toString() + "%";
-            if (percentages[i] < sortedPercsBefore[0]) {
-                options[i].innerText += " - BUY";
-            }
             options[i].dataset.text = "true";
         }
         else if (digit === 2 && toggles[1] === true && data === undefined && text[1] !== "") {
             options[i].innerText += " - " + text[1];
-            if (showPercentages) options[i].innerText += " - " + percentages[i].toString() + "%";
-            if (percentages[i] < sortedPercsBefore[0]) {
-                options[i].innerText += " - BUY";
-            }
             options[i].dataset.text = "true";
         }
         else if (digit === 3 && toggles[2] === true && data === undefined && text[2] !== "") {
             options[i].innerText += " - " + text[2];
-            if (showPercentages) options[i].innerText += " - " + percentages[i].toString() + "%";
-            if (percentages[i] < sortedPercsBefore[0]) {
-                options[i].innerText += " - BUY";
-            }
+            
             options[i].dataset.text = "true";
         }
         else if (digit === 4 && toggles[3] === true && data === undefined && text[3] !== "") {
             options[i].innerText += " - " + text[3];
-            if (showPercentages) options[i].innerText += " - " + percentages[i].toString() + "%";
-            if (percentages[i] < sortedPercsBefore[0]) {
-                options[i].innerText += " - BUY";
-            }
             options[i].dataset.text = "true";
-        } else if (data === undefined && showPercentages) {
-            if (percentages[i] === -100) return
-            if (showPercentages) options[i].innerText += " - " + percentages[i].toString() + "%";
-            if (percentages[i] < sortedPercsBefore[0]) {
-                options[i].innerText += " - BUY";
+        } 
+
+        // Add percentages based on the lowest ask for all serials
+        if (showPercentages && !serialNumberParam) {
+            if (percentages[i] !== -100 && data === undefined) {
+                options[i].innerText += " - " + percentages[i].toString() + "%";
+                options[i].dataset.text = "true";
             }
-            options[i].dataset.text = "true";
         }
+
+        if (selectedSerial) {
+            log("serialNumber: " + serialNumber);
+            log("Sorting serial numbers before " + serialNumber);
+
+            var currVal = prices[i];
+
+            // Sort the lower serials percentages
+            // var sortedPercsBefore = [];
+            // Get array of number before current index, sort them and figure out if this one is lower than all others
+            var before = prices.splice(0, i);
+            before = before.sort(function(a, b) {
+                return a - b;
+            });
+            log(before);
+
+            // Find the percentage away from the lowest price above 
+            var minValAbove = before[1]; // Skip first because its the --- Select ...
+            log("minValAbove: " + minValAbove)
+            log("currVal: " + currVal)
+            var diff = minValAbove - currVal;
+            var tPerc = Math.round(diff / currVal * 100);
+            log("Buy percentage: " + tPerc)
+
+            if (tPerc && data === undefined) {
+                options[i].innerText += " - " + tPerc.toString() + "%";
+                options[i].dataset.text = "true";
+            }
+            
+
+            log("Percentage away from low above current " + tPerc);
+            if (prices[i] < before[1]) {
+                log("Buy!")
+                isBuy = true;
+            } else if (prices[i] < before[1] && data === undefined) { 
+                options[i].innerText += " - LOWEST ABOVE $" + before[1];
+                options[i].dataset.text = "true";
+            }
+
+            if (isBuy && data === undefined && tPerc > 50) {
+                options[i].innerText += " - BUY";
+                options[i].dataset.text = "true";
+            }
+        }
+    
     }
 }
 
@@ -305,7 +350,7 @@ chrome.storage.sync.get([
 
     if (dropdown && !INITIALIZED) {
         INITIALIZED = true;
-        ready(items, dropdown);
+        // ready(items, dropdown);
     } else if (!LOADING) {
         LOADING = true
         var observer = new MutationObserver(function(mutations) {
@@ -319,12 +364,15 @@ chrome.storage.sync.get([
                    
                     for (var childNode of childNodes) {
                       if (childNode.id === SELECT_LIST_ID) {
-                        observer.disconnect();
-                        ready(items, childNode);
-                        break;
+                          if (childNode.length > 1) {
+                            ready(items, childNode);
+                            break;
+                          }
                       }
                     }
                 }
+
+                observer.disconnect();
             });
         });
 
