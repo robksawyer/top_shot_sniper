@@ -317,6 +317,7 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
             var diff = minValAbove - currVal;
             log("Variance: " + diff);
             var tPerc = Math.round(diff / currVal * 100);
+            tPerc = parseInt(tPerc, 10)
             log("Buy percentage: " + tPerc)
 
             if (tPerc && data === undefined) {
@@ -328,8 +329,10 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
             // log("Percentage away from low above current " + tPerc);
             log("Lower Serial Price: " + before[1])
             log("Price: " + prices[i])
-            if (prices[i] < before[1]) {
-                // log("Buy!")
+            log("Buy: " + parseInt(currVal, 10) < parseInt(minValAbove, 10))
+            log("Percentage: " + tPerc)
+            if (parseInt(currVal, 10) < parseInt(minValAbove, 10)) {
+                log("Buy!")
                 isBuy = true;
             }
 
