@@ -329,18 +329,26 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
             if (prices[i] < before[1]) {
                 // log("Buy!")
                 isBuy = true;
-            } else { 
-                options[i].innerText += " - 👎🏿 @ $" + before[1];
-                options[i].dataset.text = "true";
             }
 
-            if (isBuy && data === undefined && tPerc > 50) {
+            if (isBuy && tPerc >= 25) {
                 if (tPerc >= 90) {
                     options[i].innerText += " - 👍🏿 🐐"; 
                 } else if (tPerc >= 70) {
-                    options[i].innerText += " - 👍🏿 💵 ";
+                    options[i].innerText += " - 👍🏿 💵 🔥";
+                } else {
+                    options[i].innerText += " - 👍🏿 💵 👌 ";
                 }
                 options[i].dataset.text = "true";
+            } else {
+                options[i].innerText += " - 👎🏿 @ $" + before[1];
+                options[i].dataset.text = "true";
+
+                setTimeout(function() {
+                    chrome.tabs.getCurrent(function(tab) {
+                        chrome.tabs.remove(tab.id, function() { });
+                    });
+                }, 500)
             }
         }
     
