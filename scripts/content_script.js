@@ -347,7 +347,7 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
                     chrome.runtime.sendMessage({ text: "close" }, tabId => {
                         log('Closing tab ' + tabId + ' because this moment is NOT a good deal!');
                     });
-                }, 30000);
+                }, 10000);
             }
         }
     
