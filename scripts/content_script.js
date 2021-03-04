@@ -335,7 +335,11 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
             }
 
             if (isBuy && data === undefined && tPerc > 50) {
-                options[i].innerText += " - 👍🏿 💵 BUY";
+                if (tPerc >= 90) {
+                    options[i].innerText += " - 👍🏿 🐐"; 
+                } else if (tPerc >= 70) {
+                    options[i].innerText += " - 👍🏿 💵 ";
+                }
                 options[i].dataset.text = "true";
             }
         }
