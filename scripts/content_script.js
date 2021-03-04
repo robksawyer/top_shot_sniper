@@ -24,6 +24,7 @@ var log = function (obj) {
  */
 var ready = function (items, dropdown) {
     log("Ready!");
+    var closeBrowser = items['closeBrowser'];
     var color1 = items['oneDigitColor'];
     var color2 = items['twoDigitColor'];
     var color3 = items['threeDigitColor'];
@@ -53,7 +54,7 @@ var ready = function (items, dropdown) {
         if(text1 !== "" || text2 !== "" || text3 !== "" || text4 !== "") {
             var serialNumberParam = getParameterByName(location.search, 'serialNumber');
             log("serialNumber param: " + serialNumberParam);
-            addText(dropdown, textArray, percentArray, toggleArray, serialNumberParam, true);
+            addText(dropdown, textArray, percentArray, toggleArray, serialNumberParam, true, closeBrowser);
         }
         // colorChanges(dropdown, colorArray, toggleArray);
     }
@@ -251,8 +252,9 @@ var allDescendents = function(node) {
  * @param {*} toggles 
  * @param {string} serialNumberParam 
  * @param {bool} showPercentages 
+ * @param {bool} closeBrowser is whether or not to close the browser 
  */
-var addText = function(options, text, percentages, toggles, serialNumberParam, showPercentages) {
+var addText = function(options, text, percentages, toggles, serialNumberParam, showPercentages, closeBrowser) {
     log("Updating options select list...");
     log("Total options: " + options.length);
 
@@ -343,11 +345,14 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
             } else {
                 options[i].innerText += " - 👎🏿 @ $" + before[1];
                 options[i].dataset.text = "true";
-                setTimeout(function(){ 
-                    chrome.runtime.sendMessage({ text: "close" }, tabId => {
-                        log('Closing tab ' + tabId + ' because this moment is NOT a good deal!');
-                    });
-                }, 10000);
+
+                if (closeBrowser) {
+                    setTimeout(function(){ 
+                        chrome.runtime.sendMessage({ text: "close" }, tabId => {
+                            log('Closing tab ' + tabId + ' because this moment is NOT a good deal!');
+                        });
+                    }, 6000);
+                }
             }
         }
     
@@ -358,7 +363,8 @@ chrome.storage.sync.get([
     'oneDigitColor', 'twoDigitColor', 'threeDigitColor', 
     'fourDigitColor', 'oneDigitText', 'twoDigitText', 
     'threeDigitText', 'fourDigitText', 'toggle', 
-    'toggle1', 'toggle2', 'toggle3', 'toggle4'
+    'toggle1', 'toggle2', 'toggle3', 'toggle4',
+    'closeBrowser',
 ], function(items) {
     log("Executing NBA Top Shot Helper...")
     var observer = new MutationObserver(function(mutations) {
