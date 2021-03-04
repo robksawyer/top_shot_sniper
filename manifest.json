@@ -12,6 +12,10 @@
       "128": "static/icons/icon128.png" 
     },
     "background": {
+      "matches": [
+        "*://*.nbatopshot.com/listings/p2p/*",
+        "*://nbatopshot.com/listings/p2p/*"
+      ],
       "scripts": [
         "scripts/background.js"
       ],
@@ -20,8 +24,8 @@
     "content_scripts": [
       {
         "matches": [
-          "https://www.nbatopshot.com/listings/p2p/*",
-          "http://www.nbatopshot.com/listings/p2p/*"
+          "*://*.nbatopshot.com/listings/p2p/*",
+          "*://nbatopshot.com/listings/p2p/*"
         ],
         "js": [
           "scripts/content_script.js"
@@ -33,6 +37,8 @@
       "activeTab",
       "storage",
       "https://www.nbatopshot.com/listings/p2p/*",
-      "http://www.nbatopshot.com/listings/p2p/*"
+      "http://www.nbatopshot.com/listings/p2p/*",
+      "https://nbatopshot.com/listings/p2p/*",
+      "http://nbatopshot.com/listings/p2p/*"
     ]
 }

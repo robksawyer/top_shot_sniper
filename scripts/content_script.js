@@ -23,6 +23,7 @@ var log = function (obj) {
  * @param {*} dropdown 
  */
 var ready = function (items, dropdown) {
+    log("Ready!");
     var color1 = items['oneDigitColor'];
     var color2 = items['twoDigitColor'];
     var color3 = items['threeDigitColor'];
@@ -56,6 +57,7 @@ var ready = function (items, dropdown) {
         }
         // colorChanges(dropdown, colorArray, toggleArray);
     }
+    log("Configuration complete.");
 }
 
 /**
@@ -131,7 +133,7 @@ var getPercentages = function(options) {
         var percentageInc = Math.round(diff / min * 100 );
         percArray.push(percentageInc)
     }
-
+    log("Percentages calculated...")
     return percArray
 }
 
@@ -140,6 +142,7 @@ var getPercentages = function(options) {
  * @param {*} options 
  */
 var getPrices = function(options) {
+    log("Gathering prices...")
     var optionsArray = [];
     try {
         for (var i = 0; i < options.length; i++) {
@@ -232,11 +235,9 @@ var colorChanges = function(options, colors, toggles) {
  */
 var allDescendents = function(node) {
     const descendents = [];
-
     for (const childNode of node.childNodes) {
         descendents.push(childNode, ...allDescendents(childNode));
     }
-
     return descendents;
 };
 
@@ -252,6 +253,7 @@ var allDescendents = function(node) {
  * @param {bool} showPercentages 
  */
 var addText = function(options, text, percentages, toggles, serialNumberParam, showPercentages) {
+    log("Updating options select list...");
     log("Total options: " + options.length);
 
     var prices = getPrices(options);
@@ -311,27 +313,29 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
             log("minValAbove: " + minValAbove)
             log("currVal: " + currVal)
             var diff = minValAbove - currVal;
-            // log("Variance: " + diff);
+            log("Variance: " + diff);
             var tPerc = Math.round(diff / currVal * 100);
             log("Buy percentage: " + tPerc)
 
             if (tPerc && data === undefined) {
-                options[i].innerText += " - " + tPerc.toString() + "%";
+                options[i].innerText += " / " + tPerc.toString() + "%";
                 options[i].dataset.text = "true";
             }
             
 
             // log("Percentage away from low above current " + tPerc);
+            log("Lower Serial Price: " + before[1])
+            log("Price: " + prices[i])
             if (prices[i] < before[1]) {
                 // log("Buy!")
                 isBuy = true;
-            } else if (prices[i] < before[1] && data === undefined) { 
-                options[i].innerText += " - LOWEST ABOVE $" + before[1];
+            } else { 
+                options[i].innerText += " - 👎🏿 @ $" + before[1];
                 options[i].dataset.text = "true";
             }
 
             if (isBuy && data === undefined && tPerc > 50) {
-                options[i].innerText += " - BUY";
+                options[i].innerText += " - 👍🏿 💵 BUY";
                 options[i].dataset.text = "true";
             }
         }
@@ -346,6 +350,7 @@ chrome.storage.sync.get([
     'threeDigitText', 'fourDigitText', 'toggle', 
     'toggle1', 'toggle2', 'toggle3', 'toggle4'
 ], function(items) {
+    log("Executing NBA Top Shot Helper...")
     var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if (!mutation.addedNodes) {
@@ -356,16 +361,15 @@ chrome.storage.sync.get([
                 var childNodes = [node, ...allDescendents(node)];
             
                 for (var childNode of childNodes) {
-                if (childNode.id === SELECT_LIST_ID) {
-                    if (childNode.length > 1) {
+                    if (childNode.id === SELECT_LIST_ID) {
                         ready(items, childNode);
+                        log(observer);
+                        observer.disconnect();
                         break;
                     }
                 }
-                }
+                
             }
-
-            observer.disconnect();
         });
     });
 
