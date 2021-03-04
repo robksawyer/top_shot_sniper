@@ -27,9 +27,20 @@ const onMessageListener = (message, sender, sendResponse) => {
       console.log(message.obj);
       break;
 
-    // default:
-    //   console.log(message.obj);
-    //   break;
+    default:
+      // console.log(message.obj);
+      break;
+  }
+  switch(message.text) {
+    case 'close':
+      var tabId = sender.tab.id;
+      console.log("Closing tab id", tabId);
+      chrome.tabs.remove(tabId, function() {
+        console.log("Closed the tab.");
+      });
+      break
+    default:
+      break;
   }
   return true;
 };

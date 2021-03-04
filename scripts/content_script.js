@@ -343,17 +343,16 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
             } else {
                 options[i].innerText += " - 👎🏿 @ $" + before[1];
                 options[i].dataset.text = "true";
-
-                log("Closing tab because this moment is not a good deal!");
-                setTimeout(function() { 
-                    window.close();
-                }, 1000)
+                setTimeout(function(){ 
+                    chrome.runtime.sendMessage({ text: "close" }, tabId => {
+                        log('Closing tab ' + tabId + ' because this moment is NOT a good deal!');
+                    });
+                }, 5000);
             }
         }
     
     }
 }
-
 
 chrome.storage.sync.get([
     'oneDigitColor', 'twoDigitColor', 'threeDigitColor', 
