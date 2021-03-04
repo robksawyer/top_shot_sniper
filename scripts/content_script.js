@@ -344,11 +344,10 @@ var addText = function(options, text, percentages, toggles, serialNumberParam, s
                 options[i].innerText += " - 👎🏿 @ $" + before[1];
                 options[i].dataset.text = "true";
 
-                setTimeout(function() {
-                    chrome.tabs.getCurrent(function(tab) {
-                        chrome.tabs.remove(tab.id, function() { });
-                    });
-                }, 500)
+                log("Closing tab because this moment is not a good deal!");
+                setTimeout(function() { 
+                    window.close();
+                }, 1000)
             }
         }
     
